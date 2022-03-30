@@ -32,14 +32,17 @@ public class Scen_4 {
 	}
   @Test
   public void f() throws Exception {
-		
+	//navigate to myntra
 		driver.navigate().to("https://www.myntra.com/");
 		WebElement women =driver.findElement(By.xpath("//*[@class='desktop-navLink']/a[text()='Women']"));
 		
+	//to open menu of women section to mouse hover
 		Actions actions = new Actions(driver);
 		
 		actions.moveToElement(women).build().perform();
 		Thread.sleep(1000);
+		
+	//select dresses option
 		driver.findElement(By.xpath("//div[@data-group='women']//ul[@class='desktop-navBlock']//a[text()='Dresses']")).click();
 
 		/*
@@ -48,19 +51,24 @@ public class Scen_4 {
 		 * driver.findElement(By.xpath("(//*[@class='sort-label '])[1]")).click();
 		 */
 		
-		//select brand
+	//select brand
 		driver.findElement(By.xpath("(//*[@class='brand-list']//*[@class='common-checkboxIndicator'])[1]")).click();
 		Thread.sleep(2000);
 		
+	//selenium not provide element for Scroll down, so used javascript executor to 	scrolldown and click discount option
 		WebElement element = driver.findElement(By.xpath("//*[@class='discount-list']//*[@class='common-radioIndicator']"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
 		actions.moveToElement(element).click().build().perform();
 		Thread.sleep(3000);
-
+		
+	//after selecting dresses page it switches to another page so need to handle it
 		String originalWindow = driver.getWindowHandle();
 		
+	//selected 1st dress here	
 		driver.findElement(By.xpath("(//*[@class='results-base']/li/a)[1]")).click();
+		
+	// getting all window handles in set
 		Set<String> windowHandles = driver.getWindowHandles();
 		//Loop through until we find a new window handle
 		for (String windowHandle : windowHandles) {
@@ -70,19 +78,26 @@ public class Scen_4 {
 		    }
 		}
 		Thread.sleep(3000);
+	//dress size selected for add to bag
 		driver.findElement(By.xpath("//*[@class='size-buttons-buttonContainer']/button")).click();
+		
+	//dress add to bag
 		driver.findElement(By.xpath("//*[text()='ADD TO BAG']")).click();
 
 		driver.close();
 		driver.switchTo().window(originalWindow);
 		driver.navigate().refresh();
+	//to open cart page
 		WebElement cart = driver.findElement(By.className("desktop-cart"));
 		actions.moveToElement(cart).click().build().perform();
 		
+	//to handle popup
 		WebElement okGotIt = driver.findElement(By.className("itemComponents-base-toolTipCTA"));
 		actions.moveToElement(okGotIt).click().build().perform();
-		driver.findElement(By.xpath("//button[text()='MOVE TO WISHLIST']")).click();
 		
+	//product move to wishlist
+		driver.findElement(By.xpath("//button[text()='MOVE TO WISHLIST']")).click();
+	//click on move to wishlist popup	
 		driver.findElement(By.className("bulkActionStrip-waterMelon")).click();  
 		
   
@@ -91,6 +106,7 @@ public class Scen_4 {
 
   @AfterMethod
   public void afterMethod() {
+	  //closed all tab 
 	 driver.quit();
   }
 

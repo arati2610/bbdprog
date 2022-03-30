@@ -13,7 +13,7 @@ import Pages.CartPage;
 import Pages.DressesPage;
 import Pages.LandingPage;
 
-public class TC_1 extends Base_Test {
+public class Scen_6 extends Base_Test {
 
 	@Test
 	public void f() throws Exception {
